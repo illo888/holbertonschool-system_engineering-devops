@@ -1,0 +1,50 @@
+1. Distributed Web Infrastructure
+
+A user wants to access the website www.foobar.com using a web browser.
+The browser sends a DNS request to resolve the domain name.
+DNS returns the IP address of the load balancer.
+
+The load balancer (HAProxy) receives the HTTP request and distributes it
+to one of the backend servers.
+
+The load balancer is added to distribute incoming traffic between multiple
+servers in order to improve performance and availability.
+
+This infrastructure contains two servers.
+Each server runs:
+- A web server (Nginx)
+- An application server
+- The application codebase
+- A MySQL database
+
+Having two servers allows the system to handle more traffic and provides
+better availability compared to a single server.
+
+The load balancer uses a Round Robin distribution algorithm.
+This algorithm forwards requests to each server sequentially,
+ensuring traffic is evenly distributed.
+
+The load balancer is configured in an Active-Active setup.
+In Active-Active, all backend servers handle traffic at the same time.
+In Active-Passive, only one server handles traffic while the other waits
+as a backup.
+
+The database is configured as a Primary-Replica (Master-Slave) cluster.
+The Primary database handles write operations.
+The Replica database copies data from the Primary and handles read operations.
+
+The Primary node is responsible for inserting, updating, and deleting data.
+The Replica node is used to read data and improve performance
+but does not handle write operations.
+
+Issues with this infrastructure:
+
+There is still a Single Point of Failure (SPOF) at the load balancer.
+If the load balancer fails, the entire system becomes unavailable.
+
+There are security issues because there is no firewall to protect the servers
+and no HTTPS to encrypt traffic.
+
+There is no monitoring system to detect failures or performance issues,
+which makes it difficult to maintain reliability.
+``
