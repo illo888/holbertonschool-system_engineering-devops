@@ -1,0 +1,56 @@
+2. Secured and Monitored Web Infrastructure
+
+A user wants to access the website www.foobar.com using a web browser.
+The browser sends a DNS request to resolve the domain name.
+DNS returns the IP address of the load balancer.
+
+The user connects to the load balancer using HTTPS.
+An SSL certificate is installed on the load balancer to encrypt the traffic
+between the user and the infrastructure.
+
+This infrastructure consists of:
+- 1 Load balancer (HAProxy)
+- 3 Firewalls
+- 2 Backend servers
+Each backend server contains:
+- A web server (Nginx)
+- An application server
+- The application codebase
+- A MySQL database
+- A monitoring client
+
+Firewalls are added to control incoming and outgoing network traffic.
+They protect the infrastructure by allowing only authorized connections
+and blocking malicious traffic.
+One firewall is placed in front of the load balancer and one in front of
+each backend server.
+
+HTTPS is used to secure the communication between the user and the website.
+It encrypts the data to protect sensitive information such as passwords
+and personal data from being intercepted.
+
+Monitoring clients are installed on each server to collect metrics and logs.
+Monitoring is used to observe the health, performance, and availability
+of the system and to detect issues early.
+
+The monitoring tool collects data such as CPU usage, memory usage, disk activity,
+network traffic, and application logs.
+This data is sent to a centralized monitoring service like Sumologic.
+
+To monitor web server QPS (queries per second), the monitoring tool can collect
+metrics from the web server access logs or from Nginx status modules
+that expose request rates.
+
+Issues with this infrastructure:
+
+Terminating SSL at the load balancer level is an issue because traffic between
+the load balancer and backend servers is not encrypted, which can expose data
+inside the internal network.
+
+Having only one MySQL server capable of accepting writes is an issue because
+it creates a single point of failure for write operations.
+If the primary database fails, the application cannot write data.
+
+Having servers with all the same components (web server, application server,
+and database) can be problematic because it reduces separation of concerns,
+makes scaling harder, and complicates maintenance.
