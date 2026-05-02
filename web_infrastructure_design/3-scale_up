@@ -1,0 +1,36 @@
+3. Scale Up Infrastructure
+
+This infrastructure is designed to scale up the previous setup by improving
+availability, performance, and maintainability.
+
+A user accesses the website www.foobar.com through a web browser.
+DNS resolves the domain name to the IP address of the load balancer cluster.
+
+Two load balancers (HAProxy) are configured as a cluster.
+They share the traffic and provide redundancy.
+If one load balancer fails, the other one continues serving requests.
+
+An additional server is added to allow proper separation of components.
+Each major component now runs on its own dedicated server.
+
+Web servers are placed on separate servers.
+They are responsible for handling HTTP/HTTPS requests,
+serving static content, and forwarding dynamic requests.
+
+Application servers are placed on separate servers.
+They execute the application logic, process requests,
+and communicate with the database.
+
+The database server is isolated on its own server.
+It stores and manages persistent data independently
+from the web and application servers.
+
+Separating components improves scalability because each layer
+can be scaled independently based on its load.
+It also improves security and maintainability.
+
+The additional load balancer is added to eliminate a single point of failure
+at the load balancer level and increase availability.
+
+This scale-up infrastructure allows the system to handle more traffic,
+reduce downtime, and simplify future growth of the application.
