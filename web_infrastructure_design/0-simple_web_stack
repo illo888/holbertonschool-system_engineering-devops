@@ -1,0 +1,36 @@
+0. Simple Web Stack Design
+
+A user wants to access the website www.foobar.com using a web browser.
+
+The browser sends a request to a DNS server to resolve the domain name www.foobar.com.
+The DNS returns the IP address 8.8.8.8, which is the IP of the server hosting the website.
+The browser then sends an HTTP request to the server at 8.8.8.8.
+
+The server is a physical or virtual machine that provides services to other computers.
+In this infrastructure, a single server hosts all components of the web stack.
+
+The domain name foobar.com allows users to access the website using a human readable name
+instead of an IP address.
+
+The www record in www.foobar.com is a DNS A record, which points the domain name to the
+IPv4 address 8.8.8.8.
+
+The web server (Nginx) receives HTTP requests from users, serves static content,
+and forwards dynamic requests to the application server.
+
+The application server runs the application code, processes business logic,
+and communicates with the database when needed.
+
+The database (MySQL) stores and manages persistent data such as user information
+and application data.
+
+The server communicates with the user's computer using HTTP or HTTPS over the TCP/IP protocol.
+
+Issues with this infrastructure:
+
+There is a single point of failure (SPOF) because everything runs on one server.
+If the server goes down, the entire website becomes unavailable.
+
+Maintenance or deployment requires restarting services, which causes downtime.
+
+The infrastructure cannot scale because one server cannot handle a large amount of traffic.
